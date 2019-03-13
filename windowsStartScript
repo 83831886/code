@@ -1,0 +1,4 @@
+D:
+cd D:\apache-tomcat-7.0.30\bin
+start /I startup.bat
+timeout 5

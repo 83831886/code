@@ -1,0 +1,19 @@
+#检查是否安装yum工具包
+
+rpm -qa |grep yum-utils
+
+#安装yum工具包
+
+yum -y install yum-utils* 
+
+#查看安装结果
+
+rpm -qa |grep yum-utils 
+
+#创建存放包目录
+
+mkdir /rpms
+
+#下载安装包及依赖存放至/rpms目录下
+
+yumdownloader --resolve --destdir /rpms package-name

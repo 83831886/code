@@ -1,0 +1,20 @@
+#挂载安装光盘镜像
+
+mount /dev/sr0 /mnt
+
+#建立yum源配置文件
+
+vim /etc/yum.repos.d/rhel-dvd.repo
+
+[rhel-dvd]
+name=Server
+baseurl=file:///mnt
+gpgcheck=0
+
+注意：需要备份原有的.repo文件并清空/etc/yum.repos.d/
+
+#更新yum缓存
+
+yum clean all
+yum makecache
+

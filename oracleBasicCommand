@@ -1,0 +1,122 @@
+服务器端的配置：
+配置监听程序
+vi $ORACLE_HOME/network/admin/listener.ora
+----------------------------------------------------------------------------
+LISTENER =
+  (DESCRIPTION_LIST =
+    (DESCRIPTION =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = 172.25.0.10)(PORT = 1521))
+    )
+  )
+----------------------------------------------------------------------------
+
+启动监听程序：
+lsnrctl stop LISTENER
+lsnrctl start LISTENER
+lsnrctl status LISTENER
+
+注册实例到监听程序：
+SQL> alter system register;
+
+(DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=172.25.0.10)(PORT=1521)))
+Service "cctv" has 1 instance(s).
+  Instance "cctv", status READY, has 1 handler(s) for this service...
+
+客户端的配置：
+配置服务命名
+vi $ORACLE_HOME/network/admin/tnsnames.ora
+----------------------------------------------------------------------------
+teach =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = 172.25.0.10)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = cctv)
+    )
+  )
+----------------------------------------------------------------------------
+
+联网测试：
+sqlplus scott/tiger@teach
+
+配置实例的静态注册
+vi $ORACLE_HOME/network/admin/listener.ora
+----------------------------------------------------------------------------
+LISTENER =
+  (DESCRIPTION_LIST =
+    (DESCRIPTION =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = 172.25.0.10)(PORT = 1521))
+    )
+  )
+
+SID_LIST_LISTENER =
+  (SID_LIST =
+    (SID_DESC =
+      (GLOBAL_DBNAME = cctv) # show parameter db_unique_name
+      (ORACLE_HOME = /u01/app/oracle/product/11.2.0/db_1)
+      (SID_NAME = cctv) # echo $ORACLE_SID
+    )
+  )
+----------------------------------------------------------------------------
+#查看初始化参数中的监听配置（如果无法动态注册监听到服务）
+SQL> show parameter listen
+
+SQL> alter system set local_listener='' scope=both;
+
+
+
+select * from nls_database_parameters where parameter='NLS_CHARACTERSET';	/*查询当前字符集*/
+
+/*开启归档日志*/
+shutdown immediate;
+startup mount;
+alter database archivelog;
+alter database open;
+archive log list;
+
+/*检查当前的版本号*/
+select * from product_component_version;
+
+/*查询归档日志文件存放路径*/
+show parameter log_archive_dest_1;
+
+/*修改归档日志文件存放路径及格式*/
+alter system set log_archive_dest_1="location=/home/oracle/app/oracle/arch" scope=both;
+alter system set log_archive_format='o12c_%t_%s_%r.arc' scope=spfile;
+
+/*手动切换日志*/
+alter system switch logfile;
+
+#ORACLE12C移动数据文件
+alter database move datafile 'A' to 'B';
+
+#查看闪回和归档的状态
+select log_mode,open_mode,flashback_on from v$database;
+
+#查看实例名
+select instance_name from v$instance;     
+
+
+遇到spfile配置错误无法启动实例时，创建开机初始化文件，修改后创建新的spfile
+create pfile='/u01/app/oracle/admin/init.ora' from spfile; 
+修改init.ora,然后
+startup pfile='/u01/app/oracle/admin/init.ora';
+正常启动实例后
+create spfile from pfile='/u01/app/oracle/admin/init.ora';
+
+查询报警日志文件的目录
+select value from v$diag_info where name='Diag Trace';
+
+Oracle11g口令过期的解决:
+ALTER PROFILE DEFAULT LIMIT PASSWORD_LIFE_TIME UNLIMITED;
+
+查看口令过期时间
+select * from dba_profiles where profile='DEFAULT' AND resource_name='PASSWORD_LIFE_TIME';
+
+
+修改SYS SYSTEM密码:
+alter user sys identified by password;(真实密码）
+alter user system identified by password;(真实密码）
+
+查看dmp目录  DATA_PUMP_DIR
+select * from dba_directories;

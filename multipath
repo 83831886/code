@@ -1,0 +1,67 @@
+#安装多路径multipath软件包
+
+yum install device-mapper-multipath
+
+#添加multipath模块
+
+modprobe dm-multipath
+modprobe dm-round-robin
+
+#自动生成配置文件/etc/multipath.conf
+
+mpathconf --enable
+
+#手动添加配置文件/etc/multipath.conf
+
+# vi /etc/multipath.conf
+blacklist {
+    devnode "^sda"
+}
+defaults {
+    user_friendly_names yes
+    path_grouping_policy multibus
+    failback immediate
+    no_path_retry fail
+}
+
+#为多路径设备添加别名，在/etc/multipath.conf中添加一下代码
+
+multipaths {
+       multipath {
+                      wwid                    14f504e46494c45524a50683031632d63444d5a2d6c6c6559
+                      alias                   oracle
+       #               path_grouping_policy    multibus
+       #               path_selector           "round-robin 0"
+       #               failback                manual
+       #               rr_weight               priorities
+       #               no_path_retry           5
+              }
+}
+
+
+#查看多路径服务
+
+multipath -ll
+
+#设置开机启动
+
+systemctl enable multipathd.service
+
+#启动多路径服务
+
+systemctl start multipathd.service
+
+#查看多路径磁盘
+
+lsblk
+
+#查看iscsi target
+
+iscsiadm --mode discovery --type sendtargets --portal 192.168.220.135
+
+#添加iscsi磁盘
+
+iscsiadm -m node -T iqn.2006-01.com.openfiler:tsn.dc8347e9f9dd -p 192.168.220.135 -l
+
+
+
