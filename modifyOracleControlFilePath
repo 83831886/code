@@ -1,0 +1,6 @@
+sqlplus / as sysdba
+create pfile=${PFILE} from spfile; #${PFILE}为生成的文件名及其路径。比如PFILE='D:\init.ora',PFILE='/opt/init.ora'
+shutdown immediate
+#关闭ORACLE实例后，将相应控制文件复制到目标目录下并修改pfile中的对应路径。
+startup pfile=${PFILE}
+create spfile from pfile;
