@@ -1,5 +1,7 @@
 #!/bin/bash
 /sbin/iptables -F
+/sbin/iptables -X
+/sbin/iptables -Z
 
 /sbin/iptables -A INPUT -s 127.0.0.1 -d 127.0.0.1 -j ACCEPT
 /sbin/iptables -A INPUT -s 127.0.0.1 -j ACCEPT
@@ -11,6 +13,6 @@
 /sbin/iptables -A INPUT -j REJECT
 /sbin/iptables -A FORWARD -j REJECT
 
-/sbin/service iptables save
+iptables-save
 /sbin/iptables  -nL
 echo ok
