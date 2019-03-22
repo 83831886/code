@@ -1,0 +1,24 @@
+/etc/sysconfig/network-scripts/ifcfg-enp0s3
+
+TYPE="Ethernet"
+BOOTPROTO="none" #This line shows that the network card’s IP address should be configured manually. If you set the value as “dhcp”, then the network card will accept the IP address from any DHCP server in the network.
+
+DEFROUTE="yes"
+IPV4_FAILURE_FATAL="no"
+IPV6INIT="yes"
+IPV6_AUTOCONF="yes"
+IPV6_DEFROUTE="yes"
+IPV6_FAILURE_FATAL="no"
+NAME="enp0s3"
+UUID="e9f9caef-cb9e-4a19-aace-767c6ee6f849"
+ONBOOT="yes"
+HWADDR="08:00:27:80:63:19"
+IPADDR0="192.168.1.150" #This line indicates the IP address of the network card. Here, you might notice the number 0(zero) after the line IPADDR. This indicates that this card has only one IP address. If you want to set more than one IP address (i.e virtual IP address, then you need to change this line as IPADDR1, IPADDR2 respectively.
+
+PREFIX0="24" # This line indicates the subnet mask, i.e 25.255.255.0. Here you can specify more than PREFIX with lines PREFIX1, PREFIX 2 etc.
+
+GATEWAY0="192.168.1.1" # This is the gateway address of the NIC.
+DNS1="192.168.1.1" # The Name server address.
+IPV6_PEERDNS="yes"
+IPV6_PEERROUTES="yes"
+
