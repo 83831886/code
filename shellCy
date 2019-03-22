@@ -35,7 +35,8 @@ pkill -9 httpd killall-9 httpd
 
 #8.把目录下*.sh文件改名为*.SH
 
-find . -name"*.sh"|sed's/\(.*\)\.sh/mv \0 \1.SH/'|shfind . -name"*.sh"|sed's/\(.*\)\.sh/mv & \1.SH/'|sh （跟上面那个效果一样）
+find . -name "*.sh"|sed 's/\(.*\)\.sh/mv \0 \1.SH/'|sh 
+find . -name "*.sh"|sed 's/\(.*\)\.sh/mv & \1.SH/'|sh （跟上面那个效果一样）
 #9.ssh执行远程的程序，并在本地显示
 
 ssh-n-l zouyunhao 192.168.2.14 "ls -al /home/zouyunhao"
