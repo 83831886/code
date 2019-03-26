@@ -1,0 +1,5 @@
+#生成二维码
+curl qrenco.de/OSTechNix
+
+#查看公网IP
+curl ip.sb
