@@ -1,5 +1,11 @@
-#生成二维码
+#生成OSTechNix对应的二维码
 curl qrenco.de/OSTechNix
 
 #查看公网IP
 curl ip.sb
+
+#This command will display the installed packages by size. Largest packages packages will be displayed last.
+rpm -qa --queryformat '%10{size} - %-25{name} \t %{version}\n' | sort -n
+
+#Find files bigger than X size, for example 10 MB, and sort them by size
+find . -size +10M -type f -print0 | xargs -0 ls -Ssh | sort -z
