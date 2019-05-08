@@ -1,0 +1,15 @@
+int a;
+scanf("%d", &a)
+
+float a, b;
+scanf("%f %f", &a, &b);
+
+char a[10];
+scanf("%s", a);
+
+char a[10];
+int b;
+scanf("%s %d", a, &b);
+
+int b;
+scanf("%*s %d", &b);
