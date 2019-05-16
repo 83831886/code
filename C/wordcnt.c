@@ -1,10 +1,9 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <stdbool.h>
-#define STOP '|'
 int main(void)
 {
-	char c;
+	int c;
 	char prev;
 	long n_chars = 0L;
 	int n_lines = 0;
@@ -12,9 +11,9 @@ int main(void)
 	int p_lines = 0;
 	bool inword = false;
 
-	printf("Enter text to be analyzed (| to terminate):\n");
+	printf("Enter text to be analyzed \n");
 	prev = '\n';
-	while ((c = getchar()) != STOP)
+	while ((c = getchar()) != EOF)
 	{
 		n_chars++;
 		if (c == '\n')
