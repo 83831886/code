@@ -3,21 +3,21 @@
 #include <stdbool.h>
 int main(void)
 {
-	int ch, w_sum, c_sum;
-	ch = w_sum = c_sum = 0;
-	bool isword = true;
+	int ch, w_sum, c_sum, pre;
+	ch = w_sum = c_sum =  0;
+	bool isword = false;
 
 	while ((ch = getchar()) != EOF)
 	{
-		if (isblank(ch))
-			isword = false;
-		else
+		if (isspace(ch) && !isword)
+			isword = true;
+		if (!isspace(ch))
 			c_sum++;
-
-		if (isword)
+		pre = ch;
+		if (isspace(pre) && isword)
 			w_sum++;
 	}
-	printf("%d %d\n", w_sum, c_sum);
+	printf("平均每个单词的字母数是%.1f\n", (float) c_sum / w_sum);
 
 	return 0;
 }
