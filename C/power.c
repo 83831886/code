@@ -23,6 +23,21 @@ double power(double n, int p)
 	double pow = 1;
 	int i;
 
+	if (n == 0 && p == 0)
+	{	
+		printf("未定义。\n");
+		return 1;
+	}
+	if (p < 0)
+	{
+		for (i = 1; i <= -p;i++)
+			pow *= 1 / n;
+	}
+	else if (p == 0)
+		return 1;
+	if (n == 0)
+		return 0;
+
 	for (i = 1; i <=p; i++)
 		pow *= n;
 

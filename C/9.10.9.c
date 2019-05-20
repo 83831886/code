@@ -1,39 +1,42 @@
 #include <stdio.h>
-#include <ctype.h>
-void menu(void);
-int work(int, int);
+void showmenu(void);
+int getchoice(int, int);
 int main(void)
 {
-	menu();
-	printf("%d\n",work(1, 4));
-	 
+	int res;
+	showmenu();
+	while ((res = getchoice(1,4)) != 4)
+	{
+		printf("I like choice %d.\n", res);
+		showmenu();
+	}
+	printf("Bye!\n");
 	return 0;
 }
 
-void menu(void)
+void showmenu(void)
 {
 	printf("Please choose one of the following:\n");
 	printf("1) copy files		2) move files\n");
 	printf("3) remove files		4) quit\n");
-	printf("Enter the number of your choice: ");
-
+	printf("Enter the number of your choice:\n");
 }
 
-int work(int x, int y)
+int getchoice(int low, int high)
 {
-
-	int d;
-
-	while (1)
+	int ans;
+	int good;
+	good = scanf("%d", &ans);
+	while (good == 1 && (ans < low || ans > high))
 	{
-		scanf("%d", &d);
-		 if (d > y || d < x)
-			menu();
-		else 
-			return d;
-		while (getchar() != '\n')
-			continue;
+		printf("%d is not a valid choice; try again\n", ans);
+		showmenu();
+		scanf("%d", &ans);
 	}
-
-
+	if (good != 1)
+	{
+		printf("Non-numeric input. ");
+		ans = 4;
+		}
+	return ans;
 }
