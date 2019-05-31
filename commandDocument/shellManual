@@ -151,7 +151,7 @@
 		tar zxvpf gz.tar.gz -C 放到指定目录 包中的目录       # 解包tar.gz 不指定目录则全解压
 		tar zcvpf /$path/gz.tar.gz * # 打包gz 注意*最好用相对路径
 		tar zcf /$path/gz.tar.gz *   # 打包正确不提示
-		tar ztvpf gz.tar.gz          # 查看gz
+	tar ztvpf gz.tar.gz          # 查看gz
 		tar xvf 1.tar -C 目录        # 解包tar
 		tar -cvf 1.tar *             # 打包tar
 		tar tvf 1.tar                # 查看tar

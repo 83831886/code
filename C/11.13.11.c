@@ -2,13 +2,14 @@
 #include <string.h>
 #define LEN 10
 #define STR 80
-void asc(char * st[]);
+void asc(char * st[LEN]);
 void printo(int rows, int cols, char st[][cols]);
 void menu(void);
 int main(void)
 {
 	char  str[LEN][STR];
-	char * ss[LEN] = {"fsf", "fdsf"};
+	char * ss[LEN];
+	
 	int k = 0;	
 	int i;
 	int c = 0;
@@ -18,11 +19,17 @@ int main(void)
 		printf("请输入第%d个字符串：", i + 1);
 		fgets(str[i], STR, stdin);
 	}
+
 	for (i = 0; i < LEN; i++)
+	{
 		ss[i] = str[i];
+	}
+
 	while (j != '5')
 	{
 	menu();
+
+
 
 	puts("输入选项：");
 	scanf("%c", &j);
@@ -68,20 +75,20 @@ void printo(int rows, int cols, char  st[][STR])
 	for (i = 0; i < rows; i++)
 		puts(*(st + i));
 }
-void asc(char * st[])
+void asc(char * st[LEN])
 {
-	int i,j;
-	
 	char * temp;
-	for (i = 0; i < LEN; i++)
-		for (j = i + 1; j < strlen(st[i]); j++)
-		{
-			if (strcmp(st[i], st[j]) < 0)
-			{
-				temp = st[i];
-				st[i] = st[j];
-				st[j] = temp;
-			}
-		}
+	int top, seek;
+
+	for (top = 0; top < LEN; top++)
+		for (seek = top + 1; seek < LEN; seek++)
+			if (strcmp(st[top], st[seek]) > 0)
+					{
+					temp = st[top];
+					st[top] = st[seek];
+					st[seek] = temp;
+					}
+	
+	
 }
 
