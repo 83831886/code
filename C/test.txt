@@ -1,15 +1,10 @@
-int a;
-scanf("%d", &a)
-
-float a, b;
-scanf("%f %f", &a, &b);
-
-char a[10];
-scanf("%s", a);
-
-char a[10];
-int b;
-scanf("%s %d", a, &b);
-
-int b;
-scanf("%*s %d", &b);
+world is beauty
+name is wangwei
+apple is red
+banana is yellow
+juice is ta
+dog is j
+cat is animal
+snow is white
+wind cold
+find out
